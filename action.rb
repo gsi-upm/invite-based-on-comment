@@ -5,6 +5,7 @@ require "json"
 event = JSON.parse(File.read(ENV['GITHUB_EVENT_PATH']))
 comment = event["comment"]["body"]
 org = ENV['ORG']
+ghout = ENV['GITHUB_OUTPUT']
 team_id = ENV['TEAM_ID']
 commenter = event["comment"]["user"]["login"]
 self_invite = defined?(ENV['SELF_INVITE']) == nil ? true : ENV['SELF_INVITE']
@@ -33,6 +34,7 @@ if comment.include?(".invite") && comment.split().length == 2
   end
   
   client.add_team_membership(team_id, user)
+  File.write(ghout, "user-added=#{user}" , mode: 'a+')
 end
 
 puts "-------------------------------------------------"
