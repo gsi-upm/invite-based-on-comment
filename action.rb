@@ -34,7 +34,7 @@ if comment.include?(".invite") && comment.split().length == 2
   end
   
   client.add_team_membership(team_id, user)
-  File.write(ghout, "user-added=#{user}" , mode: 'a+')
+  File.write(ghout, "user_added=#{user}" , mode: 'a+')
 end
 
 puts "-------------------------------------------------"
